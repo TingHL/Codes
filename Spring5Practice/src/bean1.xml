@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <!-- 通过配置文件创建，User对象的创建   -->
-    <!-- bean里面有两个标签 分别为id class，对象的   -->
-    <bean id="user" class="com.atguigu.spring5.User"></bean>
-</beans>
