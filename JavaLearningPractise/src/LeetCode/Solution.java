@@ -1,42 +1,46 @@
 package LeetCode;
 
 import javax.swing.plaf.SliderUI;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 class Solution {
-    public int strToInt(String string) {
-        String str=string.trim();
-        boolean sign=true;
-        int i=0;
-        StringBuilder sb=new StringBuilder();
+    static ArrayList<Integer> tmp=new ArrayList<>();
+    public static long maxInversions(List<Integer> arr){
+        int res=recur(arr,0);
+        return res;
+    }
 
-
-        if(str.charAt(i)<='9'&&str.charAt(i)>='0'){
-            while(i<str.length()&&str.charAt(i)<='9'&&str.charAt(i)>='0'){
-                sb.append(str.charAt(i));
-                ++i;
+    public static int recur(List<Integer> arr,int index){
+        if(tmp.size()==3)return 1;
+        int res=0;
+        for(int i=index;i<arr.size();i++){
+            if(tmp.size()==0){
+                tmp.add(arr.get(i));
+                res+=recur(arr,i+1);
+                tmp.remove(tmp.size()-1);
+            }else{
+                if(tmp.get(tmp.size()-1)<arr.get(i)){
+                    ;
+                }else if(tmp.get(tmp.size()-1)>arr.get(i)){
+                    tmp.add(arr.get(i));
+                    res+=recur(arr,i+1);
+                    tmp.remove(tmp.size()-1);
+                }else{;}
             }
-        }else if(str.charAt(i)=='+'||str.charAt(i)=='-'){
-            if(i+1<str.length()&&str.charAt(i+1)<='9'&&str.charAt(i+1)>='0'){
-                if(str.charAt(i)=='-')sign=false;
-                i++;
-                while(i<str.length()&&str.charAt(i)<='9'&&str.charAt(i)>='0'){
-                    sb.append(str.charAt(i));
-                    i++;
-                }
-            }else return 0;
-        }else return 0;
-
-
-        long num=Long.parseLong(sb.toString());
-        if(!sign)num=-num;
-        if(num<Integer.MIN_VALUE)return Integer.MIN_VALUE;
-        if(num>Integer.MAX_VALUE)return Integer.MAX_VALUE;
-        return Integer.parseInt(sb.toString());
+        }
+        return res;
     }
 
     public static void main(String[] args) {
-        Solution solution=new Solution();
-        String data=" ";
-        solution.strToInt(data);
+        List<Integer> data=new LinkedList<>();
+        data.add(4);
+        data.add(1);
+        data.add(3);
+        data.add(2);
+        data.add(5);
+        long res=maxInversions(data);
+        System.out.println(res);
     }
 }
