@@ -8,6 +8,8 @@
         <property name="gender" value="女"></property>
         <!-- 级联赋值-->
         <property name="dept" ref="dept"></property>
+        <!-- 这种方式需要emp类有get方法-->
+        <property name="dept.dname" value="技术部门"></property>
     </bean>
 
     <bean id="dept" class="com.atguigu.spring5.bean.Department">
