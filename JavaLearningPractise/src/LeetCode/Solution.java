@@ -7,18 +7,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 class Solution {
-    public int findMaxConsecutiveOnes(int[] nums) {
-        if(nums.length==0)return 0;
-        if(nums.length==1&&nums[0]==0)return 0;
+    public int lengthOfLongestSubstring(String s) {
+        int length=s.length();
+        if(length==0||length==1)return length;
 
-        int res=0;
-        int tmp=0;
-        for(int i=0;i<nums.length;i++){
-            if(nums[i]==1)tmp++;
-            else if(nums[i]==0){
-                //res=res<tmp?tmp:res;
-                res=Math.max(res,tmp);
-                tmp=0;
+        int res=0,tmp=0;
+        for(int i=0;i<s.length();i++){
+            for(int j=i+1;j<s.length();j++){
+                //字符相等情况
+                if(s.charAt(i)==s.charAt(j)){
+                    tmp=j-i;
+                    res=res>tmp?res:tmp;
+                    break;
+                }else if(j+1==s.length()){
+                    tmp=j-i+1;
+                    res=res>tmp?res:tmp;
+                    break;
+                }else{;}
             }
         }
         return res;
@@ -26,7 +31,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution=new Solution();
-        int[] data=new int[]{1};
-        solution.findMaxConsecutiveOnes(data);
+        String data="abcabcbb";
+        solution.lengthOfLongestSubstring(data);
     }
 }
