@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <servlet>
+        <servlet-name>HelloWorld</servlet-name>
+        <!--  对应的class文件 包名+类名      -->
+        <servlet-class>HelloWorld</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HelloForm</servlet-name>
+        <servlet-class>HelloForm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckBox</servlet-name>
+        <servlet-class>CheckBox</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadParams</servlet-name>
+        <servlet-class>ReadParams</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayHead</servlet-name>
+        <servlet-class>DisplayHead</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <!-- <servlet-name>与<servlet>中的一定相同 -->
+        <servlet-name>HelloWorld</servlet-name>
+        <!-- 在浏览器地址栏中输入的url地址-->
+        <url-pattern>/HelloWorld</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HelloForm</servlet-name>
+        <url-pattern>/HelloForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckBox</servlet-name>
+        <url-pattern>/CheckBox</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadParams</servlet-name>
+        <url-pattern>/ReadParams</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayHead</servlet-name>
+        <url-pattern>/DisplayHead</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Refresh</servlet-name>
+        <servlet-class>Refresh</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Refresh</servlet-name>
+        <url-pattern>/Refresh</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowError</servlet-name>
+        <servlet-class>ShowError</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowError</servlet-name>
+        <url-pattern>/ShowError</url-pattern>
+    </servlet-mapping>
+
+</web-app>

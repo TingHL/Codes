@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.mybatis.dao.EmployeeMapper">
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+    <!--  eviction:缓存的回收策略
+          flushInterval="" readOnly="" size="" type="" blocking=""  -->
+
+    <!--  通过别名方式 将查询的Employee中的lastName与数据库中的last_name相对应  -->
+    <select id="getEmpById" resultType="com.atguigu.mybatis.bean.Employee">
+        select id,last_name lastName, email,gender from tbl_employee where id=#{id}
+    </select>
+
+    <!--    public void addEmp(Employee employee);-->
+    <insert id="addEmp" parameterType="com.atguigu.mybatis.bean.Employee" useGeneratedKeys="true" keyProperty="id">
+        insert into tbl_employee(last_name,email,gender)
+        values (#{lastName},#{email},#{gender})
+    </insert>
+</mapper>

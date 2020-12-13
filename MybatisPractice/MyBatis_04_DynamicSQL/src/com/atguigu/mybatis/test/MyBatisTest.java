@@ -1,5 +1,6 @@
 package com.atguigu.mybatis.test;
 
+import com.atguigu.mybatis.bean.Department;
 import com.atguigu.mybatis.bean.Employee;
 import com.atguigu.mybatis.dao.EmployeeMapperDynamic;
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,6 +82,7 @@ public class MyBatisTest {
         }
     }
 
+    //遍历集合
     //测试update更新操作 针对方法updateEmp
     @Test
     public void TestDynamicSQLUpdateEmp() throws IOException {
@@ -90,8 +93,6 @@ public class MyBatisTest {
         try{
             EmployeeMapperDynamic mapper = sqlSession.getMapper(EmployeeMapperDynamic.class);
            // mapper.updateEmp(employee);
-
-
             List<Employee> list=mapper.getEmpsByConditionForeach(Arrays.asList(1,2,3,4));
             for(Employee employee1:list)
                 System.out.println(employee1);
@@ -102,5 +103,25 @@ public class MyBatisTest {
         }
     }
 
+
+    //batch insert 批量插入测试
+    @Test
+    public void TestDynamicSQLBatchInsert() throws IOException {
+        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        try{
+            EmployeeMapperDynamic mapper = sqlSession.getMapper(EmployeeMapperDynamic.class);
+            // mapper.updateEmp(employee);
+            List<Employee> list=new ArrayList<>();
+            list.add(new Employee(null,"smith","smith@atguigu.com","1",new Department(1)));
+            list.add(new Employee(null,"allen","allen@atguigu.com","0",new Department(2)));
+            mapper.addEmps(list);
+
+            sqlSession.commit();
+        }finally {
+            sqlSession.close();
+        }
+    }
 
 }

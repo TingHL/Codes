@@ -124,8 +124,48 @@
         index:索引。遍历list的时候index是索引，item就是当前值
                    遍历map的时候index表示的就是map的key，item就是map的值
         -->
-        <foreach collection="list" item="item_id" separator="," open="(" close=")" >
+    <!-- 未使用注解的方式
+        <foreach collection="list" item="item_id" separator="," open="(" close=")" >-->
+    <!-- 使用注解的方法 -->
+    <foreach collection="ids" item="item_id" separator="," open="(" close=")">
             #{item_id}
         </foreach>
+    </select>
+
+    <!-- 批量保存   -->
+    <!-- 传入多个Employee进行保存-->
+    <!-- public void addEmps(@Param("emps") List<Employee> emps);-->
+    <!--  方法一：MySQL下批量保存：可以foreach遍历，mysql支持values(),(),()语法  -->
+<!--    <insert id="addEmps">-->
+<!--        insert into tbl_employee(last_name,email,gender,d_id)-->
+<!--        values-->
+<!--        <foreach collection="emps" item="emp" separator=",">-->
+<!--            (#{emp.lastName},#{emp.email},#{emp.gender},#{emp.department.id})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+    <!-- 方法二：多条SQL执行
+    这种方式需要数据库allowMultiQueries=true的支持
+    -->
+    <insert id="addEmps">
+        <foreach collection="emps" item="emp" separator=";">
+            insert into tbl_employee(last_name,email,gender,d_id)
+            values (#{emp.lastName},#{emp.email},#{emp.gender},#{emp.department.id})
+        </foreach>
+    </insert>
+
+<!--    //测试内置参数-->
+<!--    public List<Employee> getEmpsTestInnerParameter(Employee employee);-->
+    <select id="getEmpsTestInnerParameter" resultMap="com.atguigu.mybatis.bean.Employee">
+        <if test="_databaseId=='mysql'">
+            select * from tbl_employee
+            <!-- 测试输入的数据是否为空 使用_parameter-->
+            <if test="_parameter!=null">
+                where last_name = #{lastName}
+            </if>
+        </if>
+        <if test="_databaseId='oracle'">
+            select * from employee
+        </if>
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.atguigu.mybatis.dao;
 
 import com.atguigu.mybatis.bean.Employee;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,5 +20,12 @@ public interface EmployeeMapperDynamic {
     public void updateEmp(Employee employee);
 
     //传入多个id查询数据
-    public List<Employee> getEmpsByConditionForeach(List<Integer> ids);
+    public List<Employee> getEmpsByConditionForeach(@Param("ids") List<Integer> ids);
+
+    //传入多个Employee进行保存
+    public void addEmps(@Param("emps") List<Employee> emps);
+
+    //测试内置参数
+    public List<Employee> getEmpsTestInnerParameter(Employee employee);
+
 }

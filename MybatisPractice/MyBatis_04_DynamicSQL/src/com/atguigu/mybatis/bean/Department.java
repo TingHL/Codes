@@ -15,6 +15,10 @@ public class Department {
         this.departmentName = departmentName;
     }
 
+    public Department(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Department{" +
