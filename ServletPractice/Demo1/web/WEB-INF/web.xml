@@ -68,4 +68,58 @@
         <url-pattern>/ShowError</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SessionTrack</servlet-name>
+        <servlet-class>SessionTrack</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SessionTrack</servlet-name>
+        <url-pattern>/SessionTrack</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DatabaseAccess</servlet-name>
+        <servlet-class>DatabaseAccess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DatabaseAccess</servlet-name>
+        <url-pattern>/DatabaseAccess</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>UploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/UploadServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CurrentDate</servlet-name>
+        <servlet-class>CurrentDate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CurrentDate</servlet-name>
+        <url-pattern>/CurrentDate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PageRedirect</servlet-name>
+        <servlet-class>PageRedirect</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PageRedirect</servlet-name>
+        <url-pattern>/PageRedirect</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PageHitCounter</servlet-name>
+        <servlet-class>PageHitCounter</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PageHitCounter</servlet-name>
+        <url-pattern>/PageHitCounter</url-pattern>
+    </servlet-mapping>
+
 </web-app>

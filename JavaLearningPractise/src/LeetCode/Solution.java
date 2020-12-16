@@ -3,51 +3,48 @@ package LeetCode;
 import java.util.*;
 
 class Solution {
-    Stack<Character> stackLetter=new Stack<>();
-    Stack<Integer> stackDigit=new Stack<>();
+    public int maximalRectangle(char[][] matrix) {
+        if(matrix.length==0)return 0;
 
-    public String decodeString(String s){
-        int length=s.length();
-        StringBuilder sb=null;
-
-        for(int i=0;i<length;){
-            char c=s.charAt(i);
-
-            if(c<='9'&&c>='0'){
-                sb=new StringBuilder();
-                while(c<='9'&&c>='0'){
-                    sb.append(c);
-                    c=s.charAt(++i);
+        int row=matrix.length;
+        int col=matrix[0].length;
+        int ans=0;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(matrix[i][j]=='1'){
+                    ans=Math.max(ans,partialArea(matrix,i,j));
                 }
-                stackDigit.push(Integer.valueOf(sb.toString()));
-            }else if(c==']'){
-                sb=new StringBuilder();
-                while(!stackLetter.isEmpty()&&stackLetter.peek()!='['){
-                    sb.insert(0,stackLetter.pop());
-                }
-                stackLetter.pop();
-                for(int j=0;j<stackDigit.pop();j++){
-                    for(int k=0;k<sb.length();k++){
-                        stackLetter.push(sb.charAt(k));
-                    }
-                }
-                i++;
-            }else{
-                stackLetter.push(c);
-                i++;
             }
         }
+        return ans;
+    }
 
-        StringBuilder ans=new StringBuilder();
-        while(!stackLetter.isEmpty()){
-            ans.insert(0,stackLetter.pop());
+    public int partialArea(char[][] matrix,int row,int col){
+        int rowEnd=row,colEnd=col;
+        for(;rowEnd<matrix.length;rowEnd++){
+            if(matrix[rowEnd][col]!='1')break;
         }
-        return ans.toString();
+        rowEnd--;
+
+        forEnd:for(;colEnd<matrix[0].length;colEnd++){
+            for(int i=row;i<=rowEnd;row++){
+                if(matrix[i][colEnd]!='1')break forEnd;
+            }
+        }
+        colEnd--;
+
+        return (rowEnd-row+1)*(colEnd-col+1);
     }
 
     public static void main(String[] args) {
-        while(true){
-            System.out.println((1));
+        HashMap<Character,Integer> freq=new HashMap<>();
+        freq.put('A',1);
+        freq.put('B',2);
+        freq.put('C',3);
+        freq.put('D',4);
+        Set<Map.Entry<Character,Integer>> entrySet=freq.entrySet();
+        for(Map.Entry<Character,Integer> entry:entrySet){
+            System.out.println(entry);
         }
     }
 }
