@@ -8,9 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class EmployeeController {
@@ -41,6 +47,7 @@ public class EmployeeController {
     @RequestMapping("/emps")
     public String getEmps(Model model){
         Collection<Employee> all=employeeDao.getAll();
+        //model设置传输到页面的参数
         model.addAttribute("emps",all);
         return "list";
     }
@@ -49,9 +56,7 @@ public class EmployeeController {
     //再去添加页面
     @RequestMapping("/toaddpage")
     public String toAddPage(Model model){
-        Collection<Department> departments= departmentDao.getDepartments();
         model.addAttribute("employee",new Employee());
-        model.addAttribute("depts",departments);
         return "add";
     }
 
@@ -61,11 +66,28 @@ public class EmployeeController {
      * @return
      */
     @RequestMapping(value="/emp",method = RequestMethod.POST)
-    public String addEmp(Employee employee){
+    public String addEmp(@Valid Employee employee, BindingResult result,Model model){
         System.out.println("要添加的员工："+employee);
-        employeeDao.save(employee);
-        //返回列表，直接重定向到查询所有员工的请求
-        return "redirect:/emps";
+        boolean hasErrors = result.hasErrors();
+        Map<String,Object> errorMap=new HashMap<>();
+        if(hasErrors){
+            System.out.println("有校验错误");
+
+            //获取整个字段的获取错误
+            List<FieldError> fieldError = result.getFieldErrors();
+            for(FieldError fieldError1:fieldError){
+                System.out.println("错误消息提示："+ fieldError1.getDefaultMessage());
+                System.out.println("错误的字段是？"+fieldError1.getField());
+                System.out.println(fieldError1);
+                errorMap.put(fieldError1.getField(),fieldError1.getDefaultMessage());
+            }
+            model.addAttribute("errorInfo",errorMap);
+            return "add";
+        }else{
+            employeeDao.save(employee);
+            //返回列表，直接重定向到查询所有员工的请求
+            return "redirect:/emps";
+        }
     }
 
     /**
@@ -101,6 +123,8 @@ public class EmployeeController {
             Employee employee = employeeDao.get(id);
             model.addAttribute("employee",employee);
         }
+        Collection<Department> departments= departmentDao.getDepartments();
+        model.addAttribute("depts",departments);
     }
 
     /**
@@ -113,7 +137,5 @@ public class EmployeeController {
         employeeDao.delete(id);
         return "redirect:/emps";
     }
-
-
 
 }

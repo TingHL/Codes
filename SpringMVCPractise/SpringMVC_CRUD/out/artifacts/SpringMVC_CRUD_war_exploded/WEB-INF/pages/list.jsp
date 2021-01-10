@@ -24,6 +24,7 @@
         <th>lastName</th>
         <th>email</th>
         <th>gender</th>
+        <th>birth</th>
         <th>departmentName</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -34,6 +35,7 @@
             <td>${emp.lastName}</td>
             <td>${emp.email}</td>
             <td>${emp.gender==0?"女":"男"}</td>
+            <td>${emp.birth}</td>
             <td>${emp.department.departmentName}</td>
             <td><a href="${ctp}/emp/${emp.id}">Edit</a></td>
             <td><a href="${ctp}/emp/${emp.id}" class="delBtn">Delete</a></td>

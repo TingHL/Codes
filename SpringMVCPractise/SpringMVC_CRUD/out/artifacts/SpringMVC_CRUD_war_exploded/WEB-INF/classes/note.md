@@ -18,3 +18,6 @@
 **SpringMVC 数据流图总结**  
 
 ![](../web/WEB-INF/static/images/SpringMVC%20CFG.png)
+
+
+**输入数据时间格式化**

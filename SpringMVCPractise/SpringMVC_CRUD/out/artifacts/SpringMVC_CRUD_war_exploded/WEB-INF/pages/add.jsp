@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>员工添加</title>
@@ -28,17 +29,21 @@
 <%
     pageContext.setAttribute("ctp",request.getContextPath());
 %>
+
 <form:form action="${ctp}/emp" modelAttribute="employee" method="post">
     <!-- path 就是原理HTML-INPUT中的name项 需要写
         path:
-            1）当作原生的name项
+            1）当作原生的name项 对应对象的属性
             2）自动回显隐含模型中某个对象对应的这个属性的值
+
+            form:errors 显示错误信息
     -->
-    lastName:<form:input path="lastName"/><br/>
-    email:<form:input path="email"/><br/>
+    lastName:<form:input path="lastName"/><form:errors path="lastName"></form:errors>-->${errorInfo.lastName}<br/>
+    email:<form:input path="email"/><form:errors path="email"></form:errors>-->${errorInfo.email}<br/>
     gender:<br/>
         男：<form:radiobutton path="gender" value="1"/><br/>
         女：<form:radiobutton path="gender" value="0"/><br/>
+    birth:<form:input path="birth"/><form:errors path="birth"></form:errors>-->${errorInfo.birth}<br/>
     dept:
         <!--items：指定要遍历的集合,自动遍历，遍历出的每一个元素都是department对象
             itemLabel="属性"：指定遍历出的这个对象的哪个属性是作为option标签体的值

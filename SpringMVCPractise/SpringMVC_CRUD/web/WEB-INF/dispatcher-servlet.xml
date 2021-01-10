@@ -24,7 +24,7 @@
     <mvc:default-servlet-handler/>
     <!-- 解决动态映射请求出错的问题 SpringMVC可以保证静态请求和动态请求都能访问-->
     <!-- conversionServiceFactoryBean 指定使用自己配置的类型转换组件 -->
-    <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+    <mvc:annotation-driven conversion-service="conversionService2"></mvc:annotation-driven>
 
     <!-- 告诉SpringMVC别使用自定义的ConversionService，使用自定义的ConversionService，可能有我们自定义的Converter -->
     <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
@@ -34,6 +34,20 @@
                 <bean class="com.atguigu.component.MyStringToEmployeeConverter"></bean>
             </set>
         </property>
+    </bean>
+
+    <!-- 既有自定义类型转换功能 又有格式化功能   -->
+    <bean id="conversionService2" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.atguigu.component.MyStringToEmployeeConverter"></bean>
+            </set>
+        </property>
+    </bean>
+
+    <!-- 管理国际化资源文件   -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="errors"></property>
     </bean>
 
 </beans>
