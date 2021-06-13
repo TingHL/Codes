@@ -1,45 +1,44 @@
 package LeetCode;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 class Solution {
-    StringBuilder ans=new StringBuilder();
-
-    public String reformatNumber(String number) {
-        number=number.replace(" ","");
-        number=number.replace("-","");
-        System.out.println("number replace:"+number);
-        char[] cArray=number.toCharArray();
-
-        if(cArray.length<=4){
-            fourLength(cArray,0,cArray.length);
-        }else{
-            int i=0;
-            while(cArray.length-i>4){
-                ans.append(cArray[i++]);
-                ans.append(cArray[i++]);
-                ans.append(cArray[i++]);
-                ans.append("-");
-            }
-            fourLength(cArray,i,cArray.length);
+    public int[] searchRange(int[] nums, int target) {
+        int start=Solution.firstGenerate(nums,target);
+        if(start==nums.length||nums[start]!=target){
+            return new int[]{-1,-1};
         }
 
-        return ans.toString();
+        int[] ans=new int[]{start,firstGenerate(nums,target+1)-1};
+        for(int an:ans){
+            System.out.println(an);
+        }
+        return ans;
     }
 
 
-    public void fourLength(char[] array,int start,int end){
-        if(end-start==2)ans.append(array,start,2);
-        if(end-start==3)ans.append(array,start,3);
-        if(end-start==4){
-            ans.append(array,start,2);
-            ans.append('-');
-            ans.append(array,start+2,2);
+    //get the first elements that equals to target in nums.
+    public static int firstGenerate(int[] nums,int target){
+        //the return result is left
+        int left=0,right=nums.length;
+        while(left<right){
+            int middle=left+(right-left)/2;
+            if(nums[middle]>target){
+                right=middle-1;
+            }else if(nums[middle]<target){
+                left=middle+1;
+            }else if(nums[middle]==target){
+                right=middle;
+            }
         }
+
+        return left;
     }
 
     public static void main(String[] args) {
        Solution solution=new Solution();
-        System.out.println(solution.reformatNumber("1-23-45 6"));
+       int[] data={5,7,7,8,8,10};
+       solution.searchRange(data,8);
     }
 }
