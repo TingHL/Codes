@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<configuration>
-<!--    &lt;!&ndash; 使用的是注解  为dao文件夹下的数据访问服务创建 &ndash;&gt;-->
-<!--    <mappers>-->
-<!--        <package name="com.lth.dao"/>-->
-<!--    </mappers>-->
-    
-</configuration>
